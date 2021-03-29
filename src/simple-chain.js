@@ -3,9 +3,7 @@ const CustomError = require("../extensions/custom-error");
 
 
 const chainMaker = {
-
     chain: [],
-
 
     getLength() {
         return this.chain.length;
@@ -20,6 +18,7 @@ const chainMaker = {
     },
     removeLink(position) {
         if (typeof position !== "number" || this.chain[position - 1] === undefined) {
+            this.chain = [];
             throw new Error();
         } else {
             this.chain.splice(position - 1, 1);
@@ -32,14 +31,9 @@ const chainMaker = {
         return this;
     },
     finishChain() {
-        return this.chain.join('~~');
+        let res = this.chain;
+        this.chain = [];
+        return res.join('~~');
     }
 };
-
-//console.log(chainMaker.chain);
-//console.log(chainMaker.addLink('abc'));
-//console.log(chainMaker.finishChain());
-//console.log(chainMaker.addLink('abc').finishChain())
-//console.log(chainMaker.addLink(1).addLink().addLink(2).reverseChain().addLink(3).finishChain());
-//chainMaker.addLink('abc').finishChain();
 module.exports = chainMaker;
